@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Usuario</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+			<h4 class="mb-0"
+			    th:text="${usuario.codUsua != null} ? 'Editar Usuario' : 'Registrar Nuevo Usuario'">
+			</h4>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Mensaje éxito -->
+            <div th:if="${mensajeOk}" 
+                 class="alert alert-success"
+                 th:text="${mensajeOk}">
+            </div>
+
+            <!-- Mensaje error -->
+            <div th:if="${mensajeError}" 
+                 class="alert alert-danger"
+                 th:text="${mensajeError}">
+            </div>
+
+            <form th:action="@{/guardar}" th:object="${usuario}" method="post">
+				<input type="hidden" th:field="*{codUsua}">
+                <div class="row">
+                    
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Nombres</label>
+                        <input type="text" class="form-control"
+                               th:field="*{nomUsua}" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Apellidos</label>
+                        <input type="text" class="form-control"
+                               th:field="*{apeUsua}" required>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Usuario</label>
+                        <input type="text" class="form-control"
+                               th:field="*{usrUsua}" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control"
+                               th:field="*{claUsua}" required>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control"
+                               th:field="*{fnaUsua}" required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tipo de Usuario</label>
+                        <select class="form-select"
+                                th:field="*{tipo.idTipo}" required>
+                            <option value="">Seleccione...</option>
+                            <option th:each="t : ${tipos}" 
+                                    th:value="${t.idTipo}" 
+                                    th:text="${t.descripcion}">
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Estado</label>
+                    <select class="form-select"
+                            th:field="*{estUsua}" required>
+                        <option value="1">Activo</option>
+                        <option value="0">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a th:href="@{/menu}" class="btn btn-secondary">
+                        Volver
+                    </a>
+                    <button type="submit" class="btn btn-success" th:text="${usuario.codUsua != null} ? 'Actualizar' : 'Registrar'"> </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
