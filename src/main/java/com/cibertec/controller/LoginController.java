@@ -1,6 +1,7 @@
 package com.cibertec.controller;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,10 +135,10 @@ public class LoginController {
     	List<Usuario> lista = usuarioService.listar();
     	
     	//Cargar JRXML desde Resources
-    	File file = ResourceUtils.getFile("classpath:reportes/usuarios.jrxml");
+    	InputStream inputStream = getClass().getResourceAsStream("/reportes/usuarios.jrxml");
     	
     	//Compilar el .JRXML a .JASPER
-    	JasperReport jasperreport = JasperCompileManager.compileReport(file.getAbsolutePath());
+    	JasperReport jasperreport = JasperCompileManager.compileReport(inputStream);
     	
     	//Convertir la lista a Datasource
     	JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lista);
@@ -163,8 +164,8 @@ public class LoginController {
             System.out.println(r.getRango() + " -> " + r.getCantidad());
         }
         
-        File file = ResourceUtils.getFile("classpath:reportes/graficoEdades.jrxml");
-        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+        InputStream inputStream = getClass().getResourceAsStream("/reportes/graficoEdades.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
       //Convertir la lista a Datasource
     	JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(rangoEdades);
