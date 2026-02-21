@@ -1,7 +1,7 @@
 FROM eclipse-temurin:21-jdk-jammy AS build
 WORKDIR /app
 COPY . .
-RUN ./mvnw -B -DskipTests clean package
+RUN chmod +x mvnw && ./mvnw -B -DskipTests clean package
 
 FROM eclipse-temurin:21-jre-jammy
 RUN apt-get update && apt-get install -y \
